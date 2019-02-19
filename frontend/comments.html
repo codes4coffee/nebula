@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Nebula - Feed</title>
+  <title>Nebula - Comments</title>
   <link rel="stylesheet" href="bsdarkly.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
   <template id="post-template">
-    <div class="container mt-2" style="background:grey">
+    <div class="container mt-2" style="background:gray">
       <div class="row">
         <div class="row">
           <div class="media">
@@ -26,6 +26,24 @@
       </div>
     </div>
   </template>
-  <button type="button" name="button" onclick="comment()">add</button>
+
+  <template id="comment-template">
+    <div class="container mt-2" style="background:gray">
+      <div class="row">
+        <div class="row">
+          <div class="media">
+            <img class="mr-3" height=100 width=100 src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png">
+            <div class="media-body">
+              Distance: .5 miles Posted: 10:22 am
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row-md">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </div>
+    </div>
+  </template>
+  <script src="comment-test.js"></script>
 </body>
 </html>
