@@ -1,0 +1,17 @@
+1- Scope of the project and project description (One paragraph)
+
+2- Requirements for the System Under Design
+
+3- Estimated plan for each iteration
+
+4- Domain Model for at least two of the requirements with higher priority (classification and brainstorming) - draw your diagrams using starUML only.
+
+5- Use case Model for at least two of the requirements with higher priority (abstract, high-level and expanded with success/unsuccessful scenarios and traceability matrix) - draw your diagrams using starUML only.
+
+6- Seq Diagram per use case (Scenario Tables if it is needed) 
+
+7- Design Class diagram
+
+8- Code (Production quality implementation for at least one usecase)
+
+9- Test (Show how you test your code)
