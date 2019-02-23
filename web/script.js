@@ -27,19 +27,19 @@ function loginValidate(){
 	var password = document.forms["loginform"]["password"].value;
 	
 	if (username == "") {
-        alert("username must be filled out");
+        alert("Please enter a username!");
         document.forms["loginform"]["username"].focus();
         return false;
     }else if (password== "") {
-        alert("password must be filled out");
+        alert("Please enter your password!");
         document.forms["loginform"]["password"].focus();
         return false;
     }else if (rpassword == "") {
-        alert("retry-password must be filled out");
+        alert("Please re-enter your password.");
         document.forms["loginform"]["retry-password"].focus();
         return false;
     }else if(password != rpassword){
-    	alert("password doesnt match");
+    	alert("Your passwords do not match.");
         document.forms["loginform"]["password"].focus();
         return false;
     }
