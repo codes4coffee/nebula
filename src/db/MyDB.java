@@ -7,9 +7,9 @@ package db;
  * pass: Test1234
  */
 public interface MyDB {
-    String USER = "project";
-    String PASS = "password";
-    String CONN_URL = "jdbc:mysql://localhost:3306/projecttest";
+    String USER = "root";
+    String PASS = "Test1234";
+    String CONN_URL = "jdbc:mysql://127.0.0.1:3306/coursedatabase";
 }
 
 //
