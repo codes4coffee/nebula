@@ -1,4 +1,4 @@
-package db;
+package com.nebula.db;
 
 import java.sql.Connection;
    import java.sql.DriverManager;

@@ -1,4 +1,4 @@
-package db;
+package com.nebula.db;
 
 /**
  * @author mehra

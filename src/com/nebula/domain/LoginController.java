@@ -1,4 +1,4 @@
-package domain.login;
+package com.nebula.domain;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
