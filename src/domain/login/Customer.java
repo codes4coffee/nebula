@@ -7,6 +7,7 @@ public class Customer {
     private String username;
     private String password;
     private String name;
+    private Location location;
 
     public String getUsername() {
         return username;
