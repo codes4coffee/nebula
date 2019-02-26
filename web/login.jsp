@@ -23,20 +23,8 @@
 <body>
 <div class="container-fluid">
     <h1><b>Nebula</b></h1>
-    <%
-        DbManager db = new DbManager();
-        Connection conn = db.getConnection();
-        if (conn == null)
-            out.print("<div class=\"alert alert-danger\" role=\"alert\">" +
-                    "The system was unable to communicate with the database server. Login will not be available." +
-                    "</div>");
-        else
-            out.print("<div class=\"alert alert-success\" role=\"alert\">" +
-                    "MySQL Connection was successful!" +
-                    "</div>");
-
-    %>
-    <form name="loginform" action="LoginController" method="post" onsubmit="return loginValidate()">
+    <%= (String) request.getAttribute("dbStatusMessage") %>
+    <form name="loginform" action="LoginValidationController" method="post" onsubmit="return loginValidate()">
         <div class="form-group">
             <label for="username">Username</label>
             <div class="input-group">

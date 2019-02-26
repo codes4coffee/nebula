@@ -1,53 +1,41 @@
 package com.nebula.controller;
 
-import com.nebula.domain.Customer;
-import com.nebula.domain.dao.CustomerDao;
-import com.nebula.domain.dao.CustomerDaoImpl;
-import com.nebula.domain.Login;
+import com.nebula.db.DbManager;
 
-import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.sql.Connection;
 
-/**
- * Servlet implementation class Login.
- */
 @WebServlet("/LoginController")
 public class LoginController extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-
-    public LoginController() {}
-
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-        CustomerDao customerDao = new CustomerDaoImpl();
+        DbManager db = new DbManager();
+        Connection connection = db.getConnection();
 
-        String username = request.getParameter("username");
-        String pass = request.getParameter("password");
-        String submitType = request.getParameter("submit");
-        Login login = new Login(username, pass);
-        Customer c = customerDao.validateCustomer(login);
+        String dbStatusMessage = "";
 
-        if (submitType.equals("login") && c != null && c.getName() != null) {
-            request.setAttribute("message", "Hello " + c.getName());
-            request.getRequestDispatcher("welcome.jsp").forward(request, response);
-        }
-        else if (submitType.equals("register")) {
-            c.setName(request.getParameter("name"));
-            c.setUsername(request.getParameter("username"));
-            c.setPassword(request.getParameter("password"));
-            customerDao.register(c);
-            request.setAttribute("successMessage", "Registration done, please login!");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+        if (connection == null) {
+            dbStatusMessage =
+                    "<div class=\"alert alert-danger\" role=\"alert\">" +
+                    "<div class=\"alert alert-danger\" role=\"alert\">" +
+                    "The system was unable to communicate with the database server. Login will not be available." +
+                    "</div>";
         }
         else {
-            request.setAttribute("message", "Data Not Found! Please register!");
-            request.getRequestDispatcher("register.jsp").forward(request, response);
+            dbStatusMessage =
+                    "<div class=\"alert alert-success\" role=\"alert\">" +
+                    "MySQL Connection was successful!" +
+                    "</div>";
         }
+
+        request.setAttribute("dbStatusMessage", dbStatusMessage);
+        request.getRequestDispatcher("/login.jsp").forward(request, response);
     }
 }
