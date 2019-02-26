@@ -19,22 +19,19 @@ public class LoginController extends HttpServlet {
         DbManager db = new DbManager();
         Connection connection = db.getConnection();
 
+        String dbStatusStyle = "";
         String dbStatusMessage = "";
 
         if (connection == null) {
-            dbStatusMessage =
-                    "<div class=\"alert alert-danger\" role=\"alert\">" +
-                    "<div class=\"alert alert-danger\" role=\"alert\">" +
-                    "The system was unable to communicate with the database server. Login will not be available." +
-                    "</div>";
+            dbStatusStyle = "alert alert-danger";
+            dbStatusMessage = "The system was unable to communicate with the database server. Login will ont be available.";
         }
         else {
-            dbStatusMessage =
-                    "<div class=\"alert alert-success\" role=\"alert\">" +
-                    "MySQL Connection was successful!" +
-                    "</div>";
+            dbStatusStyle = "alert alert-success";
+            dbStatusMessage = "MySQL Connection was successful!";
         }
 
+        request.setAttribute("dbStatusStyle", dbStatusStyle);
         request.setAttribute("dbStatusMessage", dbStatusMessage);
         request.getRequestDispatcher("/login.jsp").forward(request, response);
     }

@@ -23,7 +23,9 @@
 <body>
 <div class="container-fluid">
     <h1><b>Nebula</b></h1>
-    <%= (String) request.getAttribute("dbStatusMessage") %>
+    <div class="${dbStatusStyle}" role="alert">
+        ${dbStatusMessage}
+    </div>
     <form name="loginform" action="LoginValidationController" method="post" onsubmit="return loginValidate()">
         <div class="form-group">
             <label for="username">Username</label>
