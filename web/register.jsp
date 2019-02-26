@@ -17,7 +17,7 @@
 
 <div class="container-fluid">
     <h2><b>Registration</b></h2>
-    <form name="regform" action="LoginValidationController" method="post" onsubmit="return regValidate()">
+    <form name="regform" action="/RegisterValidationController" method="post" onsubmit="return regValidate()">
         <div class="form-group">
             <label for="username">Username</label>
             <div class="input-group">
@@ -43,7 +43,7 @@
             <input type="password" class="form-control" name="retry-password" id="retry-password" placeholder="password1">
         </div>
 
-        <button type="submit" class="btn btn-primary" name="submit" value="register">Register</button>
+        <button type="submit" name="submit" class="btn btn-primary">Register</button>
         <button type="reset" name="reset" class="btn btn-secondary">Reset</button>
         <button type="button" class="btn btn-secondary" onclick="location.href='./LoginController';">Return to Login</button>
 

@@ -38,7 +38,7 @@
             <label for="password">Password</label>
             <input type="password" class="form-control" name="password" id="password" placeholder="Password">
         </div>
-        <button type="submit" class="btn btn-primary" name="submit" value="login">Log In</button>
+        <button type="submit" name="submit" class="btn btn-primary">Log In</button>
         <button type="button" class="btn btn-secondary" onclick="location.href='/register.jsp';">Register</button>
     </form>
 
