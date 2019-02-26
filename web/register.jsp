@@ -20,6 +20,12 @@
     <form name="regform" action="/RegisterValidationController" method="post" onsubmit="return regValidate()">
         <div class="form-group">
             <label for="username">Username</label>
+            <span class="text-danger">
+                <%
+                    if (request.getAttribute("usernameError") != null)
+                        out.print("required field");
+                %>
+            </span>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <div class="input-group-text">@</div>
@@ -30,11 +36,29 @@
 
         <div class="form-group">
             <label for="name">Full Name</label>
+            <span class="text-danger">
+                <%
+                    if (request.getAttribute("fullNameError") != null)
+                        out.print("required field");
+                %>
+            </span>
             <input type="text" class="form-control" name="name" id="name" placeholder="John Doe">
         </div>
 
         <div class="form-group">
             <label for="password">Password</label>
+            <span class="text-danger">
+                <%
+                    if (request.getAttribute("passwordError") != null)
+                        out.print("required field");
+                %>
+            </span>
+            <span class="text-danger">
+                <%
+                    if (request.getAttribute("passwordMatchError") != null)
+                        out.print("passwords do not match");
+                %>
+            </span>
             <input type="password" class="form-control" name="password" id="password" placeholder="password1">
         </div>
 

@@ -18,12 +18,36 @@ public class RegisterValidationController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-        CustomerDao customerDao = new CustomerDaoImpl();
-
-        String fullName = request.getParameter("name");
         String username = request.getParameter("username");
+        String fullName = request.getParameter("name");
         String password = request.getParameter("password");
+        String retryPassword = request.getParameter("retry-password");
+
+        // TODO: Better server-side validation.
+        boolean valid = true;
+        if (username.isEmpty()) {
+            request.setAttribute("usernameError", true);
+            valid = false;
+        }
+        if (fullName.isEmpty()) {
+            request.setAttribute("fullNameError", true);
+            valid = false;
+        }
+        if (password.isEmpty()) {
+            request.setAttribute("passwordError", true);
+            valid = false;
+        }
+        if (!password.equals(retryPassword)) {
+            request.setAttribute("passwordMatchError", true);
+            valid = false;
+        }
+
+        if (!valid) {
+            request.getRequestDispatcher("/register.jsp").forward(request, response);
+        }
+
         Login login = new Login(username, password);
+        CustomerDao customerDao = new CustomerDaoImpl();
         Customer c = customerDao.validateCustomer(login);
 
         c.setName(fullName);
