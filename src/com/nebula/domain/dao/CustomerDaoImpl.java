@@ -1,10 +1,12 @@
-package com.nebula.domain;
+package com.nebula.domain.dao;
 
 import java.sql.Connection;
-   import java.sql.PreparedStatement;
-   import java.sql.ResultSet;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
-   import com.nebula.db.DbManager;
+import com.nebula.db.DbManager;
+import com.nebula.domain.Customer;
+import com.nebula.domain.Login;
 
 public class CustomerDaoImpl implements CustomerDao {
     static Connection conn;

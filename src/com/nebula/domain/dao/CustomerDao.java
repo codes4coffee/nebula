@@ -1,4 +1,7 @@
-package com.nebula.domain;
+package com.nebula.domain.dao;
+
+import com.nebula.domain.Customer;
+import com.nebula.domain.Login;
 
 /**
  * @author mehra
