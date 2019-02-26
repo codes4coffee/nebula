@@ -1,0 +1,10 @@
+.container-fluid {
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 500px;
+    min-width: 250px;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

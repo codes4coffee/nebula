@@ -4,20 +4,14 @@
     <meta charset="utf-8">
     <title>Nebula - Comments</title>
     <link rel="stylesheet" href="bsdarkly.css">
+    <link rel="stylesheet" href="bsdarkly-mods.css">
+    <style type="text/css">
+      .container-fluid {
+        margin-top: 8px;
+      }
+    </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <style type="text/css">
-        .container-fluid {
-            margin-right: auto;
-            margin-left: auto;
-            margin-top:8px;
-            max-width: 300px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-    </style>
   </head>
   <body>
     <template id="post-template">
