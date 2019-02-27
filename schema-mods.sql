@@ -30,7 +30,7 @@ CREATE TABLE customer (
 );
 
 CREATE TABLE thread (
-    threadId    INT             NOT NULL,
+    threadId    INT             NOT NULL AUTO_INCREMENT,
     customerId  VARCHAR(20)     NOT NULL,
     lastActive  TIMESTAMP       NOT NULL,
     latitude    DOUBLE          NOT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE thread (
 );
 
 CREATE TABLE message (
-    messageId   INT             NOT NULL,
+    messageId   INT             NOT NULL AUTO_INCREMENT,
     threadId    INT             NOT NULL,
     customerId  VARCHAR(20)     NOT NULL,
     body        VARCHAR(255)    NOT NULL,
@@ -50,7 +50,7 @@ CREATE TABLE message (
 );
 
 CREATE TABLE rootMessage (
-    messageId   INT             NOT NULL,
+    messageId   INT             NOT NULL AUTO_INCREMENT,
     threadId    INT             NOT NULL,
     customerId  VARCHAR(20)     NOT NULL,
     body        VARCHAR(255)    NOT NULL,
