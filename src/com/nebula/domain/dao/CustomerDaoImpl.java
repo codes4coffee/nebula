@@ -3,33 +3,43 @@ package com.nebula.domain.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import com.nebula.db.DbManager;
 import com.nebula.domain.Customer;
 import com.nebula.domain.Login;
 
-public class CustomerDaoImpl implements CustomerDao {
-    static Connection conn;
-    static PreparedStatement ps;
-    DbManager db = new DbManager();
+public class CustomerDaoImpl implements CustomerDao, AutoCloseable {
+    private static DbManager db = new DbManager();
+    private Connection connection;
+
+    public CustomerDaoImpl() {
+        connection = db.getConnection();
+    }
+
+    @Override
+    public void close() {
+        try {
+            connection.close();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public int register(Customer c) {
         int status = 0;
 
         try {
-            conn = db.getConnection();
-
-            ps = conn.prepareStatement("insert into customer values(?,?,?)");
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO customer VALUES(?,?,?)");
             ps.setString(1, c.getUsername());
             ps.setString(2, c.getPassword());
             ps.setString(3, c.getName());
 
             status = ps.executeUpdate();
-
-            conn.close();
         }
-        catch (Exception e) {
+        catch (SQLException e) {
             System.out.println(e);
         }
 
@@ -38,27 +48,24 @@ public class CustomerDaoImpl implements CustomerDao {
 
     @Override
     public Customer validateCustomer(Login login) {
-        Customer c = new Customer();
+        Customer customer = new Customer();
 
         try {
-            conn = db.getConnection();
-            ps = conn.prepareStatement("select * from customer where userId=? and password=?");
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM customer WHERE userId=? AND password=?");
             ps.setString(1, login.getUsername());
             ps.setString(2, login.getPassword());
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                c.setUsername(rs.getString(1));
-                c.setPassword(rs.getString(2));
-                c.setName(rs.getString(3));
+                customer.setUsername(rs.getString(1));
+                customer.setPassword(rs.getString(2));
+                customer.setName(rs.getString(3));
             }
-
-            conn.close();
         }
-        catch (Exception e) {
+        catch (SQLException e) {
             System.out.println(e);
         }
 
-        return c;
+        return customer;
     }
 }

@@ -13,8 +13,8 @@ public class DbManager implements MyDB {
     public Connection getConnection() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection myConnection = DriverManager.getConnection(CONN_URL, USER, PASS);
-            return myConnection;
+            Connection connection = DriverManager.getConnection(CONN_URL, USER, PASS);
+            return connection;
         }
         catch (Exception e) {
             e.printStackTrace();

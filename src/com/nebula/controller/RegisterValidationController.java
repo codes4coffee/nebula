@@ -47,13 +47,15 @@ public class RegisterValidationController extends HttpServlet {
         }
 
         Login login = new Login(username, password);
-        CustomerDao customerDao = new CustomerDaoImpl();
+        CustomerDaoImpl customerDao = new CustomerDaoImpl();
         Customer c = customerDao.validateCustomer(login);
 
         c.setName(fullName);
         c.setUsername(username);
         c.setPassword(password);
         customerDao.register(c);
+
+        customerDao.close();
 
         response.sendRedirect("/LoginController?s=1");
     }

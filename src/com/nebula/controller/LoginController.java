@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 @WebServlet("/LoginController")
 public class LoginController extends HttpServlet {
@@ -18,6 +19,12 @@ public class LoginController extends HttpServlet {
     {
         DbManager db = new DbManager();
         Connection connection = db.getConnection();
+        try {
+            connection.close();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         String dbStatusStyle = "";
         String dbStatusMessage = "";
