@@ -12,7 +12,7 @@ import com.nebula.domain.Login;
 import com.nebula.domain.dao.CustomerDao;
 import com.nebula.domain.dao.CustomerDaoImpl;
 
-@WebServlet("/RegisterValidationController")
+@WebServlet("/register-validation")
 public class RegisterValidationController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -57,6 +57,6 @@ public class RegisterValidationController extends HttpServlet {
 
         customerDao.close();
 
-        response.sendRedirect("/LoginController?s=1");
+        response.sendRedirect("/login?s=1");
     }
 }

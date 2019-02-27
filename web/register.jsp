@@ -17,7 +17,7 @@
 
 <div class="container-fluid">
     <h2><b>Registration</b></h2>
-    <form name="regform" action="/RegisterValidationController" method="post" onsubmit="return regValidate()">
+    <form name="regform" action="/register-validation" method="post" onsubmit="return regValidate()">
         <div class="form-group">
             <label for="username">Username</label>
             <span class="text-danger">
@@ -69,7 +69,7 @@
 
         <button type="submit" name="submit" class="btn btn-primary">Register</button>
         <button type="reset" name="reset" class="btn btn-secondary">Reset</button>
-        <button type="button" class="btn btn-secondary" onclick="location.href='./LoginController';">Return to Login</button>
+        <button type="button" class="btn btn-secondary" onclick="location.href='/login';">Return to Login</button>
 
     </form>
 </div>

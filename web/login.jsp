@@ -26,7 +26,7 @@
     <div class="${dbStatusStyle}" role="alert">
         ${dbStatusMessage}
     </div>
-    <form name="loginform" action="LoginValidationController" method="post" onsubmit="return loginValidate()">
+    <form name="loginform" action="login-validation" method="post" onsubmit="return loginValidate()">
         <div class="form-group">
             <label for="username">Username</label>
             <div class="input-group">

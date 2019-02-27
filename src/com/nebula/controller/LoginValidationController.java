@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class Login.
  */
-@WebServlet("/LoginValidationController")
+@WebServlet("/login-validation")
 public class LoginValidationController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
