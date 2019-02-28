@@ -1,17 +1,28 @@
 package com.nebula.domain;
 
 public class RootMessage extends Message {
-    private String type;
     private String title;
+    private String type;
+    private String imageUrl;
 
     public RootMessage() {
-        type = "";
         title = "";
+        type = "";
+        imageUrl = "";
     }
 
-    public RootMessage(String body, String type, String title) {
-        super(body);
+    public RootMessage(String customerId, String body, String title, String type, String imageUrl) {
+        super(customerId, body);
+        this.title = title;
         this.type = type;
+        this.imageUrl = imageUrl;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
         this.title = title;
     }
 
@@ -23,11 +34,11 @@ public class RootMessage extends Message {
         this.type = type;
     }
 
-    public String getTitle() {
-        return title;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
