@@ -8,7 +8,7 @@ import com.nebula.domain.Thread;
 import java.util.Date;
 
 public class DbThreadDaoTest {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         ThreadDao threadDao = new DbThreadDao();
 
         Thread thread1 = threadDao.postThread(
@@ -36,6 +36,8 @@ public class DbThreadDaoTest {
         threadDao.postComment(new Message("Lorizzle", "I HAVE LEARNED MORE IN THIS TUTORIAL  THAN MY PROF. IN SCHOOL IN COLLEGE"), thread2);
         threadDao.postComment(new Message("Rebecca", "Amazing, this is a million times better than my professors at a big university"), thread2);
         threadDao.postComment(new Message("AndyD", "Thanks, your are awesome very clear and concise."), thread2);
+
+        threadDao.close();
     }
 
     private static void assertTrue(boolean condition) {
