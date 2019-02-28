@@ -30,7 +30,6 @@ CREATE TABLE customer (
 
 CREATE TABLE thread (
     threadId    INT             NOT NULL AUTO_INCREMENT,
-    customerId  VARCHAR(20)     NOT NULL,
     lastActive  TIMESTAMP       NOT NULL,
     latitude    DOUBLE          NOT NULL,
     longitude   DOUBLE          NOT NULL,
