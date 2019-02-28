@@ -121,6 +121,7 @@ public class DbThreadDao implements ThreadDao {
             thread.setId(threadId);
 
             insertOpeningPost(thread);
+            insertExistingComments(thread);
         }
         catch (SQLException e) {
             // HACK: Workaround for Java's checked exceptions.
@@ -146,6 +147,15 @@ public class DbThreadDao implements ThreadDao {
             // HACK: Workaround for Java's checked exceptions.
             throw new RuntimeException(e);
         }
+    }
+
+    private void insertExistingComments(Thread thread) {
+        if (thread.getComments().isEmpty())
+            return;
+
+        // TODO: Must be an atomic transaction.
+        for (Message comment : thread.getComments())
+            postComment(thread, comment);
     }
 
     @Override
