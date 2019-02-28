@@ -100,7 +100,7 @@ public class DbThreadDao implements ThreadDao {
     }
 
     @Override
-    public void postThread(Thread thread) {
+    public Thread postThread(Location location, RootMessage openingPost) {
         // TODO: Must be an atomic transaction.
         try {
             Date now = new Date();
@@ -114,14 +114,15 @@ public class DbThreadDao implements ThreadDao {
             statement.setDouble(3, 0.0);
             statement.executeUpdate();
 
+            Thread thread = new Thread(0, location, now, openingPost, new ArrayList<>());
+
             ResultSet generatedKeys = statement.getGeneratedKeys();
             generatedKeys.next();
-
-            int threadId = generatedKeys.getInt(1);
-            thread.setId(threadId);
+            thread.setId(generatedKeys.getInt(1));
 
             insertOpeningPost(thread);
-            insertExistingComments(thread);
+
+            return thread;
         }
         catch (SQLException e) {
             // HACK: Workaround for Java's checked exceptions.
@@ -149,17 +150,8 @@ public class DbThreadDao implements ThreadDao {
         }
     }
 
-    private void insertExistingComments(Thread thread) {
-        if (thread.getComments().isEmpty())
-            return;
-
-        // TODO: Must be an atomic transaction.
-        for (Message comment : thread.getComments())
-            postComment(thread, comment);
-    }
-
     @Override
-    public void postComment(Thread thread, Message comment) {
+    public void postComment(Message comment, Thread thread) {
         try {
             PreparedStatement statement = connection.prepareStatement(
                     "INSERT INTO message (threadId, customerId, body) VALUES (?, ?, ?)");
