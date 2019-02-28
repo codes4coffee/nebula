@@ -13,7 +13,6 @@ USE coursedatabase;
 #   - Customer <--- RootMessage
 #   - Customer <--- Thread
 #
-#
 
 SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS customer;
@@ -35,8 +34,7 @@ CREATE TABLE thread (
     lastActive  TIMESTAMP       NOT NULL,
     latitude    DOUBLE          NOT NULL,
     longitude   DOUBLE          NOT NULL,
-    PRIMARY KEY(threadId),
-    FOREIGN KEY(customerId) REFERENCES customer(customerId)
+    PRIMARY KEY(threadId)
 );
 
 CREATE TABLE message (
@@ -45,8 +43,7 @@ CREATE TABLE message (
     customerId  VARCHAR(20)     NOT NULL,
     body        VARCHAR(255)    NOT NULL,
     PRIMARY KEY(messageId),
-    FOREIGN KEY(threadId) REFERENCES thread(threadId),
-    FOREIGN KEY(customerId) REFERENCES customer(customerId)
+    FOREIGN KEY(threadId) REFERENCES thread(threadId)
 );
 
 CREATE TABLE rootMessage (
@@ -58,8 +55,7 @@ CREATE TABLE rootMessage (
     type        VARCHAR(20)     NOT NULL,
     imageUrl    VARCHAR(255)    NOT NULL,
     PRIMARY KEY(messageId),
-    FOREIGN KEY(threadId) REFERENCES thread(threadId),
-    FOREIGN KEY(customerId) REFERENCES customer(customerId)
+    FOREIGN KEY(threadId) REFERENCES thread(threadId)
 );
 
 DESCRIBE customer;
