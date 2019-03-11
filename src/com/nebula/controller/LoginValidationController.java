@@ -1,7 +1,7 @@
 package com.nebula.controller;
 
 import com.nebula.domain.Customer;
-import com.nebula.domain.dao.CustomerDaoImpl;
+import com.nebula.domain.dao.DbCustomerDao;
 import com.nebula.domain.Login;
 
 import java.io.IOException;
@@ -24,7 +24,7 @@ public class LoginValidationController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-        CustomerDaoImpl customerDao = new CustomerDaoImpl();
+        DbCustomerDao customerDao = new DbCustomerDao();
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");

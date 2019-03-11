@@ -9,8 +9,7 @@ import java.io.IOException;
 
 import com.nebula.domain.Customer;
 import com.nebula.domain.Login;
-import com.nebula.domain.dao.CustomerDao;
-import com.nebula.domain.dao.CustomerDaoImpl;
+import com.nebula.domain.dao.DbCustomerDao;
 
 @WebServlet("/register-validation")
 public class RegisterValidationController extends HttpServlet {
@@ -47,7 +46,7 @@ public class RegisterValidationController extends HttpServlet {
         }
 
         Login login = new Login(username, password);
-        CustomerDaoImpl customerDao = new CustomerDaoImpl();
+        DbCustomerDao customerDao = new DbCustomerDao();
         Customer c = customerDao.validateCustomer(login);
 
         c.setName(fullName);

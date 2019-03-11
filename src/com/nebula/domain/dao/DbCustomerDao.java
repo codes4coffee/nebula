@@ -9,11 +9,11 @@ import com.nebula.db.DbManager;
 import com.nebula.domain.Customer;
 import com.nebula.domain.Login;
 
-public class CustomerDaoImpl implements CustomerDao, AutoCloseable {
+public class DbCustomerDao implements CustomerDao, AutoCloseable {
     private static DbManager db = new DbManager();
     private Connection connection;
 
-    public CustomerDaoImpl() {
+    public DbCustomerDao() {
         connection = db.getConnection();
     }
 
