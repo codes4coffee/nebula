@@ -5,12 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.nebula.db.DbManager;
+import com.nebula.db.DbConnectionFactory;
 import com.nebula.domain.Customer;
 import com.nebula.domain.Login;
 
 public class DbCustomerDao implements CustomerDao, AutoCloseable {
-    private static DbManager db = new DbManager();
+    private static DbConnectionFactory db = new DbConnectionFactory();
     private Connection connection;
 
     public DbCustomerDao() {

@@ -5,15 +5,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.nebula.db.DbManager;
+import com.nebula.db.DbConnectionFactory;
 import com.nebula.domain.Location;
 import com.nebula.domain.Message;
 import com.nebula.domain.RootMessage;
 import com.nebula.domain.Thread;
 
 public class DbThreadDao implements ThreadDao {
-    private static final DbManager dbManager = new DbManager();
-    private final Connection connection = dbManager.getConnection();
+    private static final DbConnectionFactory DB_CONNECTION_FACTORY = new DbConnectionFactory();
+    private final Connection connection = DB_CONNECTION_FACTORY.getConnection();
 
     @Override
     public void close() throws Exception {

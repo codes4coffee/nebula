@@ -1,6 +1,6 @@
 package com.nebula.controller;
 
-import com.nebula.db.DbManager;
+import com.nebula.db.DbConnectionFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,7 +17,7 @@ public class LoginController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-        DbManager db = new DbManager();
+        DbConnectionFactory db = new DbConnectionFactory();
         Connection connection = db.getConnection();
         if (connection != null) {
             try {

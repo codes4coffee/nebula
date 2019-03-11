@@ -5,7 +5,7 @@
   Time: 8:49 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@page import="com.nebula.db.DbManager" %>
+<%@page import="com.nebula.db.DbConnectionFactory" %>
 <%@page import="java.sql.Connection" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
