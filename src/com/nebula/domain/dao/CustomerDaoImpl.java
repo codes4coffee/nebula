@@ -34,8 +34,8 @@ public class CustomerDaoImpl implements CustomerDao, AutoCloseable {
         try {
             PreparedStatement ps = connection.prepareStatement("INSERT INTO customer VALUES(?,?,?)");
             ps.setString(1, c.getUsername());
-            ps.setString(2, c.getPassword());
-            ps.setString(3, c.getName());
+            ps.setString(2, c.getName());
+            ps.setString(3, c.getPassword());
 
             status = ps.executeUpdate();
         }
@@ -51,15 +51,15 @@ public class CustomerDaoImpl implements CustomerDao, AutoCloseable {
         Customer customer = new Customer();
 
         try {
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM customer WHERE userId=? AND password=?");
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM customer WHERE customerId=? AND password=?");
             ps.setString(1, login.getUsername());
             ps.setString(2, login.getPassword());
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 customer.setUsername(rs.getString(1));
-                customer.setPassword(rs.getString(2));
-                customer.setName(rs.getString(3));
+                customer.setName(rs.getString(2));
+                customer.setPassword(rs.getString(3));
             }
         }
         catch (SQLException e) {
