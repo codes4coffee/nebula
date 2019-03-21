@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class Login.
@@ -34,8 +35,11 @@ public class LoginValidationController extends HttpServlet {
         customerDao.close();
 
         if (customer != null && customer.getName() != null) {
+            HttpSession session = request.getSession();
+            session.setAttribute("name", customer.getName());
+            System.out.println(session.getAttribute("name"));
             request.setAttribute("message", "Hello " + customer.getName());
-            request.getRequestDispatcher("welcome.jsp").forward(request, response);
+            request.getRequestDispatcher("feed.jsp").forward(request, response);
         }
         else {
             request.setAttribute("message", "Data Not Found! Please register!");
