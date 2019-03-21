@@ -27,8 +27,8 @@ public class LoginController extends HttpServlet {
             }
         }
 
-        String dbStatusStyle = "";
-        String dbStatusMessage = "";
+        String dbStatusStyle;
+        String dbStatusMessage;
 
         if (connection == null) {
             dbStatusStyle = "alert alert-danger";
