@@ -5,9 +5,6 @@ import com.nebula.domain.Location;
 import com.nebula.domain.RootMessage;
 import com.nebula.domain.dao.DbThreadDao;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
