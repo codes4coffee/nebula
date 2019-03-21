@@ -1,6 +1,8 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
-
 <!DOCTYPE html>
+<%@page import="com.nebula.domain.dao.DbThreadDao" %>
+<%@page import="com.nebula.domain.Thread" %>
+<%@ page import="java.util.ArrayList" %>
+<%@page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
@@ -20,40 +22,40 @@
       <div class="card text-white bg-primary mb-3" onclick="alert('hi')">
         <div class="card-header">Posted by @USER 122 feet away.</div>
         <div class="card-body">
-          <h3 class="card-title">Post Title</h3>
+          <h3 class="card-title">Title</h3>
           <p class="card-text">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
           </p>
         </div>
       </div>
     </template>
-
     <nav class="navbar navbar-expand-g navbar-dark bg-light">
       <!-- The line below will probably be replaced with a logo eventually -->
-      <a class="navbar-brand" href="#">${sessionScope.name}</a>
-
+      <a class="navbar-brand" href="#">Nebula</a>
       <!-- Add new navbar items as list elements below -->
       <ul class="navbar-nav mr-auto">
         <a class="nav-link" href="feedlink">Feed</a>
       </ul>
       <button class="btn btn-secondary my-2 my-sm-0">Post</button>
     </nav>
-
-    <div class="container-fluid" id="post-body">
+    <%
+      if(request.getAttribute("threads")!=null) {
+        ArrayList<Thread> threads = (ArrayList<Thread>) request.getAttribute("threads");
+        for(Thread t : threads) {
+    %>
+    <div class="card text-white bg-primary mb-3" onclick="alert('hi')">
+      <div class="card-header"><%=t.getCustomerId()%></div>
+        <div class="card-body">
+          <h3 class="card-title"><%=t.getOpeningPost().getTitle()%></h3>
+          <p class="card-text"><%=t.getOpeningPost().getBody()%></p>
+      </div>
     </div>
+    <%}}%>
     <script type="text/javascript">
       var postTemplate = document.getElementById('post-template');
 
       function testPost(){
-        document.getElementById('post-body').insertAdjacentHTML('beforeend','<div class="card text-white bg-primary mb-3" onclick="window.location.replace(\'post.jsp\')">\n' +
-                '        <div class="card-header">Posted by @USER 122 feet away.</div>\n' +
-                '        <div class="card-body">\n' +
-                '          <h3 class="card-title">Post Title</h3>\n' +
-                '          <p class="card-text">\n' +
-                '            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n' +
-                '          </p>\n' +
-                '        </div>\n' +
-                '      </div>');
+        document.getElementById('post-body').appendChild(postTemplate.content.cloneNode(true));
       }
 
       testPost();
