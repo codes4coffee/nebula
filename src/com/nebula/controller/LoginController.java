@@ -32,7 +32,7 @@ public class LoginController extends HttpServlet {
 
         if (connection == null) {
             dbStatusStyle = "alert alert-danger";
-            dbStatusMessage = "The system was unable to communicate with the database server. Login will ont be available.";
+            dbStatusMessage = "The system was unable to communicate with the database server. Login will not be available.";
         }
         else {
             dbStatusStyle = "alert alert-success";
