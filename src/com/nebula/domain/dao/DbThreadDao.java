@@ -6,9 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.nebula.db.DbConnectionFactory;
-import com.nebula.domain.Location;
-import com.nebula.domain.Message;
-import com.nebula.domain.RootMessage;
+import com.nebula.domain.*;
 import com.nebula.domain.Thread;
 
 public class DbThreadDao implements ThreadDao {
@@ -38,11 +36,12 @@ public class DbThreadDao implements ThreadDao {
                 RootMessage openingPost = getOpeningPost(threadId);
                 List<Message> comments = getComments(threadId);
 
-                feed.add(new Thread(threadId, new Location(), lastActive, openingPost, comments));
+                feed.add(new Thread(threadId, customerId, new Location(), lastActive, openingPost, comments));
             }
 
             statement.close();
-            return (Thread[]) feed.toArray();
+
+            return feed.toArray(new Thread[maxThreads]);
         }
         catch (SQLException e) {
             // HACK: Workaround for Java's checked exceptions.
@@ -53,7 +52,7 @@ public class DbThreadDao implements ThreadDao {
     private RootMessage getOpeningPost(int threadId) {
         try {
             PreparedStatement statement = connection.prepareStatement(
-                    "SELECT (customerId, body, title, type, imageUrl) FROM rootMessage WHERE threadId = ?");
+                    "SELECT customerId, body, title, type, imageUrl FROM rootMessage WHERE threadId = ?");
             statement.setInt(1, threadId);
 
             ResultSet resultSet = statement.executeQuery();
@@ -77,7 +76,7 @@ public class DbThreadDao implements ThreadDao {
     private List<Message> getComments(int threadId) {
         try {
             PreparedStatement statement = connection.prepareStatement(
-                    "SELECT (customerId, body) FROM message WHERE threadId = ?");
+                    "SELECT customerId, body FROM message WHERE threadId = ?");
             statement.setInt(1, threadId);
 
             List<Message> comments = new ArrayList<>();
@@ -100,7 +99,7 @@ public class DbThreadDao implements ThreadDao {
     }
 
     @Override
-    public Thread postThread(Location location, RootMessage openingPost) {
+    public Thread postThread(Customer customer, Location location, RootMessage openingPost) {
         // TODO: Must be an atomic transaction.
         try {
             Date now = new Date();
@@ -114,7 +113,7 @@ public class DbThreadDao implements ThreadDao {
             statement.setDouble(3, 0.0);
             statement.executeUpdate();
 
-            Thread thread = new Thread(0, location, now, openingPost, new ArrayList<>());
+            Thread thread = new Thread(0, customer.getUsername(), location, now, openingPost, new ArrayList<>());
 
             ResultSet generatedKeys = statement.getGeneratedKeys();
             generatedKeys.next();
