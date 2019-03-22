@@ -40,6 +40,7 @@
     </nav>
     <%
       if(request.getAttribute("threads")!=null) {
+        System.out.println("Hello!");
         ArrayList<Thread> threads = (ArrayList<Thread>) request.getAttribute("threads");
         for(Thread t : threads) {
     %>
@@ -50,12 +51,12 @@
           <p class="card-text"><%=t.getOpeningPost().getBody()%></p>
       </div>
     </div>
-    <%}}%>
+    <%}}else{System.out.println("nuthin;");}%>
     <script type="text/javascript">
       var postTemplate = document.getElementById('post-template');
 
       function testPost(){
-        document.getElementById('post-body').appendChild(postTemplate.content.cloneNode(true));
+        //document.getElementById('post-body').appendChild(postTemplate.content.cloneNode(true));
       }
 
       testPost();
