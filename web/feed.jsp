@@ -34,9 +34,9 @@
       <a class="navbar-brand" href="#">Nebula</a>
       <!-- Add new navbar items as list elements below -->
       <ul class="navbar-nav mr-auto">
-        <a class="nav-link" href="feedlink">Feed</a>
+        <a class="nav-link" href="feedlink">${sessionScope.name}</a>
       </ul>
-      <button class="btn btn-secondary my-2 my-sm-0">Post</button>
+      <button class="btn btn-secondary my-2 my-sm-0" onclick="window.location.replace('post.jsp');">Post</button>
     </nav>
     <%
       if(request.getAttribute("threads")!=null) {

@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/feed")
 public class FeedController extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) //Should be a get but I have it wired up as post to get it working
         throws ServletException, IOException
     {
         DbThreadDao threadDao = new DbThreadDao();
