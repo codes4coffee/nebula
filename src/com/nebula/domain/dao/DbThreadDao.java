@@ -29,13 +29,13 @@ public class DbThreadDao implements ThreadDao {
 
             while (resultSet.next()) {
                 int threadId = resultSet.getInt(1);
-                String customerId = resultSet.getString(2);
-                Date lastActive = new Date(resultSet.getTime(3).getTime());
+                //String customerId = resultSet.getString(2);
+                String customerId = "test";
+                Date lastActive = new Date(resultSet.getTime(2).getTime());
                 // TODO: Get location.
-
+                threadId = 1; //FOR TESTING PURPOSES!!!
                 RootMessage openingPost = getOpeningPost(threadId);
                 List<Message> comments = getComments(threadId);
-
                 feed.add(new Thread(threadId, customerId, new Location(), lastActive, openingPost, comments));
             }
 
@@ -56,16 +56,15 @@ public class DbThreadDao implements ThreadDao {
             statement.setInt(1, threadId);
 
             ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
-
-            String customerId = resultSet.getString(1);
-            String body = resultSet.getString(2);
-            String title = resultSet.getString(3);
-            String type = resultSet.getString(4);
-            String imageUrl = resultSet.getString(5);
-
-            statement.close();
-            return new RootMessage(customerId, body, title, type, imageUrl);
+                resultSet.next();
+                System.out.println("This is the result!" + resultSet.getString(1));
+                String customerId = resultSet.getString(1);
+                String body = resultSet.getString(2);
+                String title = resultSet.getString(3);
+                String type = resultSet.getString(4);
+                String imageUrl = resultSet.getString(5);
+                statement.close();
+                return new RootMessage(customerId, body, title, type, imageUrl);
         }
         catch (SQLException e) {
             // HACK: Workaround for Java's checked exceptions.

@@ -14,7 +14,7 @@
 <body>
     <div class="container-fluid">
         <h1><b>Nebula</b></h1>
-        <form name="postform" action="post-validation" method="post">
+        <form name="postform" action="create-thread" method="post">
             <div class="form-group">
                 <label for="title">Title</label>
                 <div class="input-group">
@@ -31,7 +31,7 @@
                 <button type="button" class="btn btn-primary" onclick="alert('Not implemented yet.');">Upload Image</button>
             </div>
             <button type="submit" name="submit" class="btn btn-primary">Post</button>
-            <a class="btn btn-secondary" href="/feed.jsp">Cancel</a>
+            <a class="btn btn-secondary" onclick="window.location.replace('/feed');">Cancel</a>
         </form>
     </div>
 </body>

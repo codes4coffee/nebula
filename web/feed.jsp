@@ -34,12 +34,13 @@
       <a class="navbar-brand" href="#">Nebula</a>
       <!-- Add new navbar items as list elements below -->
       <ul class="navbar-nav mr-auto">
-        <a class="nav-link" href="feedlink">Feed</a>
+        <a class="nav-link" href="feedlink">${sessionScope.name}</a>
       </ul>
-      <button class="btn btn-secondary my-2 my-sm-0">Post</button>
+      <button class="btn btn-secondary my-2 my-sm-0" onclick="window.location.replace('post.jsp');">Post</button>
     </nav>
     <%
       if(request.getAttribute("threads")!=null) {
+        System.out.println("Hello!");
         ArrayList<Thread> threads = (ArrayList<Thread>) request.getAttribute("threads");
         for(Thread t : threads) {
     %>
@@ -50,12 +51,12 @@
           <p class="card-text"><%=t.getOpeningPost().getBody()%></p>
       </div>
     </div>
-    <%}}%>
+    <%}}else{System.out.println("nuthin;");}%>
     <script type="text/javascript">
       var postTemplate = document.getElementById('post-template');
 
       function testPost(){
-        document.getElementById('post-body').appendChild(postTemplate.content.cloneNode(true));
+        //document.getElementById('post-body').appendChild(postTemplate.content.cloneNode(true));
       }
 
       testPost();
