@@ -13,22 +13,22 @@
 </head>
 <body>
     <div class="container-fluid">
-        <h1><b>Nebula</b></h1>
+        <h3><b>New post</b></h3>
         <form name="postform" action="create-thread" method="post">
             <div class="form-group">
                 <label for="title">Title</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" name="title" id="title" placeholder="Frog Legs" />
+                    <input type="text" class="form-control" name="title" id="title" placeholder="Something eye-catching." />
                 </div>
             </div>
             <div class="form-group">
                 <label for="description">Description</label>
                 <div class="input-group">
-                    <textarea class="form-control" rows="5" id="description" placeholder="I found a box of frog legs."></textarea>
+                    <textarea class="form-control" rows="5" id="description" placeholder="Elaborate."></textarea>
                 </div>
             </div>
             <div class="form-group">
-                <button type="button" class="btn btn-primary" onclick="alert('Not implemented yet.');">Upload Image</button>
+                <button type="button" class="btn btn-primary" onclick="alert('Not implemented yet.');" disabled>Upload Image</button>
             </div>
             <button type="submit" name="submit" class="btn btn-primary">Post</button>
             <a class="btn btn-secondary" onclick="window.location.replace('/feed');">Cancel</a>
