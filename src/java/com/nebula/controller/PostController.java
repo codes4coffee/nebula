@@ -25,16 +25,25 @@ public class PostController extends HttpServlet {
         DbThreadDao threadDao = new DbThreadDao();
         HttpSession session = request.getSession();
         RootMessage op = new RootMessage();
-        System.out.println(request.getParameter("title"));
-        op.setTitle(request.getParameter("title"));
-        op.setBody("teeeeeest");
+
+        /* get post information */
+        String title = request.getParameter("title");
+        String description = request.getParameter("description");
+
+        /* set post information */
+        System.out.println("description: " + description);
+        op.setTitle(title);
+        op.setBody(description);
+
+        /* set location information */
         Location loc = new Location();
         loc.setCity("Dallas");
         loc.setCountry("US");
         loc.setLatitude("2");
         loc.setLongitude("2");
         loc.setPostalCode("75080");
-        threadDao.postThread((Customer) session.getAttribute("customer"), loc, op);
-        request.getRequestDispatcher("/feed").forward(request,response);
+
+        threadDao.postThread((Customer) session.getAttribute("customer"), loc, op); // post the thread
+        request.getRequestDispatcher("/feed").forward(request,response); // redirect the user to the feed
     }
 }
