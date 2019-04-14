@@ -14,7 +14,8 @@
     <title>Welcome Page</title>
 </head>
 <body>
-<h1> ${message} !!! </h1>
+<a href="/"><h1>Feed</h1></a>
+<h1> ${sessionScope.name} !!! </h1>
 
 <a href="logout.jsp">logout</a>
 
