@@ -37,9 +37,9 @@ public class LoginValidationController extends HttpServlet {
         if (customer != null && customer.getName() != null) {
             HttpSession session = request.getSession();
             session.setAttribute("name", customer.getName());
-            System.out.println(session.getAttribute("name"));
+            session.setAttribute("customer", customer);
             request.setAttribute("message", "Hello " + customer.getName());
-            request.getRequestDispatcher("feed.jsp").forward(request, response);
+            request.getRequestDispatcher("/feed").forward(request, response);
         }
         else {
             request.setAttribute("message", "Data Not Found! Please register!");

@@ -15,12 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/feed")
 public class FeedController extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) //Should be a get but I have it wired up as post to get it working
         throws ServletException, IOException
     {
         DbThreadDao threadDao = new DbThreadDao();
 
-        Thread[] threads = threadDao.getFeed(1);
+        Thread[] threads = threadDao.getFeed(3);
         ArrayList<Thread> t = new ArrayList<>(Arrays.asList(threads));
         for(Thread tr : t) {
             System.out.println(tr.getId());
