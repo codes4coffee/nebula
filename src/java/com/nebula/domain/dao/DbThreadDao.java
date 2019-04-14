@@ -26,14 +26,12 @@ public class DbThreadDao implements ThreadDao {
 
             List<Thread> feed = new ArrayList<>();
             ResultSet resultSet = statement.executeQuery();
-
             while (resultSet.next()) {
                 int threadId = resultSet.getInt(1);
                 //String customerId = resultSet.getString(2);
                 String customerId = "test";
                 Date lastActive = new Date(resultSet.getTime(2).getTime());
                 // TODO: Get location.
-                threadId = 1; //FOR TESTING PURPOSES!!!
                 RootMessage openingPost = getOpeningPost(threadId);
                 List<Message> comments = getComments(threadId);
                 feed.add(new Thread(threadId, customerId, new Location(), lastActive, openingPost, comments));
