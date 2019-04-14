@@ -106,8 +106,8 @@ public class DbThreadDao implements ThreadDao {
                     Statement.RETURN_GENERATED_KEYS);
             // TODO: Set location.
             statement.setTimestamp(1, new Timestamp(now.getTime()));
-            statement.setDouble(2, 0.0);
-            statement.setDouble(3, 0.0);
+            statement.setDouble(2, Double.parseDouble(location.getLatitude()));
+            statement.setDouble(3, Double.parseDouble(location.getLongitude()));
             statement.executeUpdate();
 
             Thread thread = new Thread(0, customer.getUsername(), location, now, openingPost, new ArrayList<>());
@@ -133,7 +133,7 @@ public class DbThreadDao implements ThreadDao {
             PreparedStatement statement = connection.prepareStatement(
                     "INSERT INTO rootMessage (threadId, customerId, body, title, type, imageUrl) VALUES (?, ?, ?, ?, ?, ?)");
             statement.setInt(1, thread.getId());
-            statement.setString(2, openingPost.getCustomerId());
+            statement.setString(2, thread.getCustomerId());
             statement.setString(3, openingPost.getBody());
             statement.setString(4, openingPost.getTitle());
             statement.setString(5, openingPost.getType());

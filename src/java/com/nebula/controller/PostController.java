@@ -26,24 +26,38 @@ public class PostController extends HttpServlet {
         HttpSession session = request.getSession();
         RootMessage op = new RootMessage();
 
-        /* get post information */
-        String title = request.getParameter("title");
-        String description = request.getParameter("description");
+        /* get customer information */
+        Customer customer = (Customer) session.getAttribute("customer");
 
-        /* set post information */
-        System.out.println("description: " + description);
-        op.setTitle(title);
-        op.setBody(description);
+        if (customer != null) { // check that customer is logged in before trying to post
+            /* get post information */
+            String title = request.getParameter("title");
+            String description = request.getParameter("description");
 
-        /* set location information */
-        Location loc = new Location();
-        loc.setCity("Dallas");
-        loc.setCountry("US");
-        loc.setLatitude("2");
-        loc.setLongitude("2");
-        loc.setPostalCode("75080");
+            /* set post information */
+            System.out.println("description: " + description);
+            op.setTitle(title);
+            op.setBody(description);
+            op.setType("TEXT"); // This is a placeholder for now
+            op.setImageUrl("qwertyuiop"); // This is a placeholder for now
 
-        threadDao.postThread((Customer) session.getAttribute("customer"), loc, op); // post the thread
-        request.getRequestDispatcher("/feed").forward(request,response); // redirect the user to the feed
+            /* set location information -
+            * This information is currently
+            * set as dummy info until we get
+            * it fully working */
+            Location loc = new Location();
+            loc.setCity("Dallas");
+            loc.setCountry("US");
+            loc.setLatitude("2");
+            loc.setLongitude("3");
+            loc.setPostalCode("75080");
+
+            System.out.println("customer username: " + customer.getUsername());
+
+            threadDao.postThread(customer, loc, op); // post the thread
+            request.getRequestDispatcher("/feed").forward(request, response); // redirect the user to the feed
+        } else { // else customer is not logged in
+            //TODO - send a 403 error if customer is not logged in when trying to post a thread
+        }
     }
 }
