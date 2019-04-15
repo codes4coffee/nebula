@@ -39,7 +39,8 @@ public class DbThreadDao implements ThreadDao {
 
             statement.close();
 
-            return feed.toArray(new Thread[maxThreads]);
+            int feedSize = feed.size();
+            return feed.toArray(new Thread[feedSize]);
         }
         catch (SQLException e) {
             // HACK: Workaround for Java's checked exceptions.
