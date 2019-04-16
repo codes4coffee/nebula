@@ -21,7 +21,7 @@ public class FeedController extends HttpServlet {
     {
         DbThreadDao threadDao = new DbThreadDao();
 
-        Thread[] threads = threadDao.getFeed(3);
+        Thread[] threads = threadDao.getFeed(2);
         ArrayList<Thread> t = new ArrayList<>(Arrays.asList(threads));
         for(Thread tr : t) {
             System.out.println(tr.getId());
