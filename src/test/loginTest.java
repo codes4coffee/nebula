@@ -31,6 +31,21 @@ public class loginTest {
         Assert.assertEquals("Registration - Nebula", driver.getTitle());
     }
 
+    @Test
+    public void testRealLogin() throws InterruptedException{
+        WebElement loginButton = driver.findElement(By.name("submit"));
+        WebElement username = driver.findElement(By.id("username"));
+        WebElement password = driver.findElement(By.id("password"));
+        username.sendKeys("test");
+        password.sendKeys("test");
+        loginButton.click();
+        Thread.sleep(1000);
+        Assert.assertEquals("Nebula - Feed", driver.getTitle());
+
+
+
+    }
+
     @After
     public void closePage() { driver.quit(); }
 
