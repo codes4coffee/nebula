@@ -34,7 +34,7 @@ public class LoginValidationController extends HttpServlet {
 
         customerDao.close();
 
-        if (customer != null && customer.getName() != null) {
+        if (customer != null) {
             HttpSession session = request.getSession();
             session.setAttribute("name", customer.getName());
             session.setAttribute("customer", customer);
