@@ -48,7 +48,7 @@ public class DbCustomerDao implements CustomerDao, AutoCloseable {
 
     @Override
     public Customer validateCustomer(Login login) {
-        Customer customer = new Customer();
+        Customer customer = null;
 
         try {
             PreparedStatement ps = connection.prepareStatement("SELECT * FROM customer WHERE customerId=? AND password=?");
@@ -57,6 +57,7 @@ public class DbCustomerDao implements CustomerDao, AutoCloseable {
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
+                customer = new Customer();
                 customer.setUsername(rs.getString(1));
                 customer.setName(rs.getString(2));
                 customer.setPassword(rs.getString(3));
