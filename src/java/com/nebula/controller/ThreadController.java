@@ -45,12 +45,8 @@ public class ThreadController extends HttpServlet {
             * This information is currently
             * set as dummy info until we get
             * it fully working */
-            Location loc = new Location();
-            loc.setCity("Dallas");
-            loc.setCountry("US");
-            loc.setLatitude("2");
-            loc.setLongitude("3");
-            loc.setPostalCode("75080");
+            Location loc = null;
+            loc  = new Location(request.getRemoteAddr());
 
             System.out.println("customer username: " + customer.getUsername());
 

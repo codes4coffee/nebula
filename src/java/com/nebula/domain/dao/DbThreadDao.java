@@ -21,8 +21,8 @@ public class DbThreadDao implements ThreadDao {
     @Override
     public Thread[] getFeed(int maxThreads) {
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM thread ORDER BY lastActive DESC LIMIT ?");
-            statement.setInt(1, maxThreads);
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM thread ORDER BY lastActive DESC");
+            //statement.setInt(1, maxThreads);
 
             List<Thread> feed = new ArrayList<>();
             ResultSet resultSet = statement.executeQuery();
@@ -34,7 +34,9 @@ public class DbThreadDao implements ThreadDao {
                 // TODO: Get location.
                 RootMessage openingPost = getOpeningPost(threadId);
                 List<Message> comments = getComments(threadId);
-                feed.add(new Thread(threadId, customerId, new Location(), lastActive, openingPost, comments));
+                Location loc = new Location();
+                loc.setCity(resultSet.getString(3));
+                feed.add(new Thread(threadId, customerId, loc, lastActive, openingPost, comments));
             }
 
             statement.close();
@@ -103,12 +105,11 @@ public class DbThreadDao implements ThreadDao {
             Date now = new Date();
 
             PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO thread (lastActive, latitude, longitude) VALUES (?, ?, ?)",
+                    "INSERT INTO thread (lastActive, city) VALUES (?, ?)",
                     Statement.RETURN_GENERATED_KEYS);
             // TODO: Set location.
             statement.setTimestamp(1, new Timestamp(now.getTime()));
-            statement.setDouble(2, Double.parseDouble(location.getLatitude()));
-            statement.setDouble(3, Double.parseDouble(location.getLongitude()));
+            statement.setString(2, location.getCity());
             statement.executeUpdate();
 
             Thread thread = new Thread(0, customer.getUsername(), location, now, openingPost, new ArrayList<>());

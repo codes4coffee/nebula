@@ -3,6 +3,7 @@ package com.nebula.controller;
 import com.nebula.domain.Customer;
 import com.nebula.domain.dao.DbCustomerDao;
 import com.nebula.domain.Login;
+import com.nebula.domain.Location;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -35,6 +36,7 @@ public class LoginValidationController extends HttpServlet {
         customerDao.close();
 
         if (customer != null) {
+            customer.setLocation(new Location(request.getRemoteAddr()));
             HttpSession session = request.getSession();
             session.setAttribute("name", customer.getName());
             session.setAttribute("customer", customer);

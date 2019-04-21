@@ -4,6 +4,8 @@ import com.nebula.domain.dao.DbCustomerDao;
 import com.nebula.domain.dao.DbThreadDao;
 import org.junit.Test;
 
+import java.io.IOException;
+
 import static org.junit.Assert.*;
 
 public class DbThreadDaoTest {
@@ -16,16 +18,11 @@ public class DbThreadDaoTest {
     }
 
     @Test
-    public void createThread() {
+    public void createThread() throws IOException {
         DbThreadDao threadDao = new DbThreadDao();
         Customer customer = new Customer("name-jeff", "1234", "Bob", new Location());
         RootMessage op = new RootMessage(customer.getUsername(), "Body message", "Title message", "TEXT", "asdf");
-        Location loc = new Location();
-        loc.setCity("Dallas");
-        loc.setCountry("US");
-        loc.setLatitude("3");
-        loc.setLongitude("2");
-        loc.setPostalCode("75080");
+        Location loc = new Location("2600:1700:730:7b30:c4b6:1ac7:7833:9b19");
         Thread thread = threadDao.postThread(customer, loc, op);
         assertEquals(op, thread.getOpeningPost());
         assertEquals(loc, thread.getLocation());

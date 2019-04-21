@@ -36,7 +36,7 @@
     %>
     <a>
       <div class="card text-white bg-primary mb-3" onclick="window.location.replace('/post?id='+<%=t.getId()%>)">
-        <div class="card-header"><%=t.getCustomerId()%></div>
+        <div class="card-header"><%=t.getCustomerId()%> - <%=t.getLocation().getCity()%></div>
         <div class="card-body">
           <h3 class="card-title"><%=t.getOpeningPost().getTitle()%></h3>
           <p class="card-text"><%=t.getOpeningPost().getBody()%></p>
