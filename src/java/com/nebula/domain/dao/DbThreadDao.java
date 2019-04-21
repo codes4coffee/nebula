@@ -149,6 +149,7 @@ public class DbThreadDao implements ThreadDao {
 
     @Override
     public void postComment(Message comment, Thread thread) {
+        System.out.println(thread.getId());
         try {
             PreparedStatement statement = connection.prepareStatement(
                     "INSERT INTO message (threadId, customerId, body) VALUES (?, ?, ?)");
@@ -161,5 +162,30 @@ public class DbThreadDao implements ThreadDao {
             // HACK: Workaround for Java's checked exceptions.
             throw new RuntimeException(e);
         }
+    }
+
+    public Thread getThread(int threadId) {
+        Thread thread = null;
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM rootMessage JOIN thread t on rootMessage.threadId = t.threadId WHERE rootMessage.threadId = ?"
+            );
+            statement.setInt(1, threadId);
+            ResultSet resultSet = statement.executeQuery();
+            thread = new Thread();
+            while(resultSet.next()) {
+                thread.setOpeningPost(new RootMessage(
+                        resultSet.getString(3),
+                        resultSet.getString(4),
+                        resultSet.getString(5),
+                        resultSet.getString(6),
+                        resultSet.getString(7)));
+                thread.setId(resultSet.getInt(8));
+            }
+            thread.setComments(getComments(threadId));
+        }catch (SQLException e) {
+            System.out.println("Error getting root message from database");
+        }
+        return thread;
     }
 }
