@@ -40,11 +40,11 @@
 
     <nav class="navbar navbar-expand-g navbar-dark bg-light">
       <!-- The line below will probably be replaced with a logo eventually -->
-      <a class="navbar-brand" href="#">Nebula</a>
+      <a class="navbar-brand" href="/feed">Nebula</a>
 
       <!-- Add new navbar items as list elements below -->
       <ul class="navbar-nav mr-auto">
-        <a class="nav-link" href="feedlink">Feed</a>
+        ${sessionScope.name}
       </ul>
       <button class="btn btn-secondary my-2 my-sm-0">Post</button>
     </nav>

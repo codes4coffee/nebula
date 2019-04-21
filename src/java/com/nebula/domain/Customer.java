@@ -9,6 +9,13 @@ public class Customer {
     private String name;
     private Location location;
 
+    public Customer(String username, String password, String name, Location location) {
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.location = location;
+    }
+
     /**
      * Gets the username of this user.
      * @return the username

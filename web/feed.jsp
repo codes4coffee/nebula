@@ -45,13 +45,15 @@
         ArrayList<Thread> threads = (ArrayList<Thread>) request.getAttribute("threads");
         for(Thread t : threads) {
     %>
-    <div class="card text-white bg-primary mb-3" onclick="alert('hi')">
-      <div class="card-header"><%=t.getCustomerId()%></div>
+    <a>
+      <div class="card text-white bg-primary mb-3" onclick="window.location.replace('/post?id='+<%=t.getId()%>)">
+        <div class="card-header"><%=t.getCustomerId()%></div>
         <div class="card-body">
           <h3 class="card-title"><%=t.getOpeningPost().getTitle()%></h3>
           <p class="card-text"><%=t.getOpeningPost().getBody()%></p>
+        </div>
       </div>
-    </div>
+    </a>
     <%}}else{System.out.println("nuthin;");}%>
     <script type="text/javascript">
       var postTemplate = document.getElementById('post-template');
