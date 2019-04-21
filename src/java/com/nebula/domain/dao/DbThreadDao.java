@@ -26,14 +26,12 @@ public class DbThreadDao implements ThreadDao {
 
             List<Thread> feed = new ArrayList<>();
             ResultSet resultSet = statement.executeQuery();
-
             while (resultSet.next()) {
                 int threadId = resultSet.getInt(1);
                 //String customerId = resultSet.getString(2);
                 String customerId = "test";
                 Date lastActive = new Date(resultSet.getTime(2).getTime());
                 // TODO: Get location.
-                threadId = 1; //FOR TESTING PURPOSES!!!
                 RootMessage openingPost = getOpeningPost(threadId);
                 List<Message> comments = getComments(threadId);
                 feed.add(new Thread(threadId, customerId, new Location(), lastActive, openingPost, comments));
@@ -41,7 +39,8 @@ public class DbThreadDao implements ThreadDao {
 
             statement.close();
 
-            return feed.toArray(new Thread[maxThreads]);
+            int feedSize = feed.size();
+            return feed.toArray(new Thread[feedSize]);
         }
         catch (SQLException e) {
             // HACK: Workaround for Java's checked exceptions.
@@ -108,8 +107,8 @@ public class DbThreadDao implements ThreadDao {
                     Statement.RETURN_GENERATED_KEYS);
             // TODO: Set location.
             statement.setTimestamp(1, new Timestamp(now.getTime()));
-            statement.setDouble(2, 0.0);
-            statement.setDouble(3, 0.0);
+            statement.setDouble(2, Double.parseDouble(location.getLatitude()));
+            statement.setDouble(3, Double.parseDouble(location.getLongitude()));
             statement.executeUpdate();
 
             Thread thread = new Thread(0, customer.getUsername(), location, now, openingPost, new ArrayList<>());
@@ -135,7 +134,7 @@ public class DbThreadDao implements ThreadDao {
             PreparedStatement statement = connection.prepareStatement(
                     "INSERT INTO rootMessage (threadId, customerId, body, title, type, imageUrl) VALUES (?, ?, ?, ?, ?, ?)");
             statement.setInt(1, thread.getId());
-            statement.setString(2, openingPost.getCustomerId());
+            statement.setString(2, thread.getCustomerId());
             statement.setString(3, openingPost.getBody());
             statement.setString(4, openingPost.getTitle());
             statement.setString(5, openingPost.getType());

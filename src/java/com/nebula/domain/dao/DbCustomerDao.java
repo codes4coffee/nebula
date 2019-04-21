@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import com.nebula.db.DbConnectionFactory;
 import com.nebula.domain.Customer;
+import com.nebula.domain.Location;
 import com.nebula.domain.Login;
 
 public class DbCustomerDao implements CustomerDao, AutoCloseable {
@@ -48,7 +49,7 @@ public class DbCustomerDao implements CustomerDao, AutoCloseable {
 
     @Override
     public Customer validateCustomer(Login login) {
-        Customer customer = new Customer();
+        Customer customer = null;
 
         try {
             PreparedStatement ps = connection.prepareStatement("SELECT * FROM customer WHERE customerId=? AND password=?");
@@ -57,9 +58,7 @@ public class DbCustomerDao implements CustomerDao, AutoCloseable {
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                customer.setUsername(rs.getString(1));
-                customer.setName(rs.getString(2));
-                customer.setPassword(rs.getString(3));
+                customer = new Customer(rs.getString(1),rs.getString(3),rs.getString(2), new Location());
             }
         }
         catch (SQLException e) {
