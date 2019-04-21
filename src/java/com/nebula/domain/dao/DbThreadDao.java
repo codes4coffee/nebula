@@ -162,4 +162,27 @@ public class DbThreadDao implements ThreadDao {
             throw new RuntimeException(e);
         }
     }
+
+    public Thread getThread(int threadId) {
+        Thread thread = null;
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM rootMessage WHERE threadId = ?"
+            );
+            statement.setInt(1, threadId);
+            ResultSet resultSet = statement.executeQuery();
+            thread = new Thread();
+            while(resultSet.next()) {
+                thread.setOpeningPost(new RootMessage(
+                        resultSet.getString(3),
+                        resultSet.getString(4),
+                        resultSet.getString(5),
+                        resultSet.getString(6),
+                        resultSet.getString(7)));
+            }
+        }catch (SQLException e) {
+            System.out.println("Error getting root message from database");
+        }
+        return thread;
+    }
 }

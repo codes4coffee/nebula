@@ -1,3 +1,4 @@
+<%@ page import="com.nebula.domain.Thread" %>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -14,9 +15,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </head>
   <body>
-    <template id="post-template">
-      <div class="card text-white bg-primary mb-3" onclick="alert('hi')">
-        <div class="card-header">Header</div>
+      <div class="card text-white bg-primary mb-3">
+        <%Thread thread = (Thread) request.getAttribute("thread");%>
+        <div class="card-header"><%=thread.getOpeningPost().getCustomerId()%></div>
         <div class="card-body">
           <h3 class="card-title">Title</h3>
           <p class="card-text">
@@ -24,7 +25,6 @@
           </p>
         </div>
       </div>
-    </template>
 
     <template id="comment-template">
       <div class="card text-white bg-secondary mb-3">
@@ -52,15 +52,7 @@
     <div class="container-fluid" id="post-body">
     </div>
     <script type="text/javascript">
-      var commentTemplate = document.getElementById('comment-template');
-      var postTemplate = document.getElementById('post-template');
 
-      function testPost(){
-        document.getElementById('post-body').appendChild(postTemplate.content.cloneNode(true));
-      }
-      function testComment(){
-        document.getElementById('post-body').appendChild(commentTemplate.content.cloneNode(true));
-      }
       testPost();
       testComment();
     </script>
