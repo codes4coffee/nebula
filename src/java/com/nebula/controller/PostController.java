@@ -36,6 +36,7 @@ public class PostController extends HttpServlet {
 
             /* set post information */
             System.out.println("description: " + description);
+            op.setCustomerId(customer.getUsername());
             op.setTitle(title);
             op.setBody(description);
             op.setType("TEXT"); // This is a placeholder for now
