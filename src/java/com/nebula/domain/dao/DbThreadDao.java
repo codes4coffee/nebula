@@ -19,10 +19,10 @@ public class DbThreadDao implements ThreadDao {
     }
 
     @Override
-    public Thread[] getFeed(int maxThreads) {
+    public Thread[] getFeed(String city) {
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM thread ORDER BY lastActive DESC LIMIT ?");
-            statement.setInt(1, maxThreads);
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM thread WHERE city= ? ORDER BY lastActive DESC");
+            statement.setString(1, city);
 
             List<Thread> feed = new ArrayList<>();
             ResultSet resultSet = statement.executeQuery();
@@ -34,7 +34,9 @@ public class DbThreadDao implements ThreadDao {
                 // TODO: Get location.
                 RootMessage openingPost = getOpeningPost(threadId);
                 List<Message> comments = getComments(threadId);
-                feed.add(new Thread(threadId, customerId, new Location(), lastActive, openingPost, comments));
+                Location loc = new Location();
+                loc.setCity(resultSet.getString(3));
+                feed.add(new Thread(threadId, customerId, loc, lastActive, openingPost, comments));
             }
 
             statement.close();
@@ -103,12 +105,11 @@ public class DbThreadDao implements ThreadDao {
             Date now = new Date();
 
             PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO thread (lastActive, latitude, longitude) VALUES (?, ?, ?)",
+                    "INSERT INTO thread (lastActive, city) VALUES (?, ?)",
                     Statement.RETURN_GENERATED_KEYS);
             // TODO: Set location.
             statement.setTimestamp(1, new Timestamp(now.getTime()));
-            statement.setDouble(2, Double.parseDouble(location.getLatitude()));
-            statement.setDouble(3, Double.parseDouble(location.getLongitude()));
+            statement.setString(2, location.getCity());
             statement.executeUpdate();
 
             Thread thread = new Thread(0, customer.getUsername(), location, now, openingPost, new ArrayList<>());
@@ -149,6 +150,7 @@ public class DbThreadDao implements ThreadDao {
 
     @Override
     public void postComment(Message comment, Thread thread) {
+        System.out.println(thread.getId());
         try {
             PreparedStatement statement = connection.prepareStatement(
                     "INSERT INTO message (threadId, customerId, body) VALUES (?, ?, ?)");
@@ -161,5 +163,30 @@ public class DbThreadDao implements ThreadDao {
             // HACK: Workaround for Java's checked exceptions.
             throw new RuntimeException(e);
         }
+    }
+
+    public Thread getThread(int threadId) {
+        Thread thread = null;
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM rootMessage JOIN thread t on rootMessage.threadId = t.threadId WHERE rootMessage.threadId = ?"
+            );
+            statement.setInt(1, threadId);
+            ResultSet resultSet = statement.executeQuery();
+            thread = new Thread();
+            while(resultSet.next()) {
+                thread.setOpeningPost(new RootMessage(
+                        resultSet.getString(3),
+                        resultSet.getString(4),
+                        resultSet.getString(5),
+                        resultSet.getString(6),
+                        resultSet.getString(7)));
+                thread.setId(resultSet.getInt(8));
+            }
+            thread.setComments(getComments(threadId));
+        }catch (SQLException e) {
+            System.out.println("Error getting root message from database");
+        }
+        return thread;
     }
 }

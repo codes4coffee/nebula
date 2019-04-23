@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import com.nebula.domain.Customer;
+import com.nebula.domain.Location;
 import com.nebula.domain.Login;
 import com.nebula.domain.dao.DbCustomerDao;
 
@@ -48,10 +49,15 @@ public class RegisterValidationController extends HttpServlet {
         Login login = new Login(username, password);
         DbCustomerDao customerDao = new DbCustomerDao();
         Customer c = customerDao.validateCustomer(login);
+        Location loc = new Location(request.getRemoteAddr());
+        if (c == null) {
+          c = new Customer(username, password, fullName, loc);
+        }else {
+            c.setName(fullName);
+            c.setUsername(username);
+            c.setPassword(password);
+        }
 
-        c.setName(fullName);
-        c.setUsername(username);
-        c.setPassword(password);
         customerDao.register(c);
 
         customerDao.close();

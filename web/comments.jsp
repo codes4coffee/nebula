@@ -1,3 +1,6 @@
+<%@ page import="com.nebula.domain.Thread" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.nebula.domain.Message" %>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -14,53 +17,46 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </head>
   <body>
-    <template id="post-template">
-      <div class="card text-white bg-primary mb-3" onclick="alert('hi')">
-        <div class="card-header">Header</div>
-        <div class="card-body">
-          <h3 class="card-title">Title</h3>
-          <p class="card-text">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </p>
-        </div>
-      </div>
-    </template>
-
-    <template id="comment-template">
-      <div class="card text-white bg-secondary mb-3">
-        <div class="card-header">Header</div>
-        <div class="card-body">
-          <h3 class="card-title">Title</h3>
-          <p class="card-text">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </p>
-        </div>
-      </div>
-    </template>
-
     <nav class="navbar navbar-expand-g navbar-dark bg-light">
       <!-- The line below will probably be replaced with a logo eventually -->
-      <a class="navbar-brand" href="#">Nebula</a>
+      <a class="navbar-brand" href="/feed">Nebula</a>
 
       <!-- Add new navbar items as list elements below -->
       <ul class="navbar-nav mr-auto">
-        <a class="nav-link" href="feedlink">Feed</a>
+        ${sessionScope.name}
       </ul>
-      <button class="btn btn-secondary my-2 my-sm-0">Post</button>
+      <button class="btn btn-secondary my-2 my-sm-0" onclick="window.location.replace('postComment.jsp')">Post</button>
     </nav>
+
+      <div class="card text-white bg-primary mb-3">
+        <%Thread thread = (Thread) request.getAttribute("thread");%>
+        <div class="card-header"><%=thread.getOpeningPost().getCustomerId()%></div>
+        <div class="card-body">
+          <h3 class="card-title"><%= thread.getOpeningPost().getTitle()%></h3>
+          <p class="card-text">
+            <%= thread.getOpeningPost().getBody()%>
+          </p>
+        </div>
+      </div>
+      <%
+        if(!thread.getComments().isEmpty()) {
+          ArrayList<Message> comments = (ArrayList<Message>) thread.getComments();
+          for(Message comment : comments){
+      %>
+      <div class="card text-white bg-secondary mb-3">
+        <div class="card-header"><%=comment.getCustomerId()%></div>
+        <div class="card-body">
+          <p class="card-text">
+            <%=comment.getBody()%>
+          </p>
+        </div>
+      </div>
+    <%}}%>
 
     <div class="container-fluid" id="post-body">
     </div>
     <script type="text/javascript">
-      var commentTemplate = document.getElementById('comment-template');
-      var postTemplate = document.getElementById('post-template');
 
-      function testPost(){
-        document.getElementById('post-body').appendChild(postTemplate.content.cloneNode(true));
-      }
-      function testComment(){
-        document.getElementById('post-body').appendChild(commentTemplate.content.cloneNode(true));
-      }
       testPost();
       testComment();
     </script>

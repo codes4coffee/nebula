@@ -19,17 +19,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </head>
   <body>
-    <template id="post-template">
-      <div class="card text-white bg-primary mb-3" onclick="alert('hi')">
-        <div class="card-header">Posted by @USER 122 feet away.</div>
-        <div class="card-body">
-          <h3 class="card-title">Title</h3>
-          <p class="card-text">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </p>
-        </div>
-      </div>
-    </template>
     <nav class="navbar navbar-expand-g navbar-dark bg-light">
       <!-- The line below will probably be replaced with a logo eventually -->
       <a class="navbar-brand" href="#">Nebula</a>
@@ -45,13 +34,15 @@
         ArrayList<Thread> threads = (ArrayList<Thread>) request.getAttribute("threads");
         for(Thread t : threads) {
     %>
-    <div class="card text-white bg-primary mb-3" onclick="alert('hi')">
-      <div class="card-header"><%=t.getCustomerId()%></div>
+    <a>
+      <div class="card text-white bg-primary mb-3" onclick="window.location.replace('/post?id='+<%=t.getId()%>)">
+        <div class="card-header"><%=t.getCustomerId()%> - <%=t.getLocation().getCity()%></div>
         <div class="card-body">
           <h3 class="card-title"><%=t.getOpeningPost().getTitle()%></h3>
           <p class="card-text"><%=t.getOpeningPost().getBody()%></p>
+        </div>
       </div>
-    </div>
+    </a>
     <%}}else{System.out.println("nuthin;");}%>
     <script type="text/javascript">
       var postTemplate = document.getElementById('post-template');
