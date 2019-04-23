@@ -19,10 +19,10 @@ public class DbThreadDao implements ThreadDao {
     }
 
     @Override
-    public Thread[] getFeed(int maxThreads) {
+    public Thread[] getFeed(String city) {
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM thread ORDER BY lastActive DESC");
-            //statement.setInt(1, maxThreads);
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM thread WHERE city= ? ORDER BY lastActive DESC");
+            statement.setString(1, city);
 
             List<Thread> feed = new ArrayList<>();
             ResultSet resultSet = statement.executeQuery();

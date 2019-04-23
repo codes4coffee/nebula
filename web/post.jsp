@@ -30,7 +30,7 @@
             <div class="form-group">
                 <button type="button" class="btn btn-primary" onclick="alert('Not implemented yet.');" disabled>Upload Image</button>
             </div>
-            <button type="submit" name="submit" class="btn btn-primary">Post</button>
+            <button type="submit" name="submit" class="btn btn-primary">Post Comment</button>
             <a class="btn btn-secondary" onclick="window.location.replace('/feed');">Cancel</a>
         </form>
     </div>

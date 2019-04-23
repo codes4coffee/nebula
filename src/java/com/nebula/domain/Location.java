@@ -43,7 +43,7 @@ public class Location {
         try {
             this.city = (String) json.get("city");
         } catch (java.lang.ClassCastException ex) {
-            this.city = "Dallas";
+            this.city = "Richardson";
         }
     }
 

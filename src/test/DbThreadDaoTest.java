@@ -12,7 +12,7 @@ public class DbThreadDaoTest {
     @Test
     public void getThread() {
         DbThreadDao threadDao = new DbThreadDao();
-        Thread[] feed = threadDao.getFeed(2);
+        Thread[] feed = threadDao.getFeed("Dallas");
         assertEquals(2, feed.length);
         assertNotNull(feed);
     }

@@ -1,5 +1,6 @@
 package com.nebula.controller;
 
+import com.nebula.domain.Customer;
 import com.nebula.domain.Thread;
 import com.nebula.domain.dao.DbThreadDao;
 
@@ -19,9 +20,11 @@ public class FeedController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) //Should be a get but I have it wired up as post to get it working
             throws ServletException, IOException
     {
+        HttpSession session = request.getSession();
+        Customer customer = (Customer) session.getAttribute("customer");
         DbThreadDao threadDao = new DbThreadDao();
 
-        Thread[] threads = threadDao.getFeed(3);
+        Thread[] threads = threadDao.getFeed(customer.getLocation().getCity());
         ArrayList<Thread> t = new ArrayList<>(Arrays.asList(threads));
         for(Thread tr : t) {
             System.out.println(tr.getId());
@@ -43,13 +46,14 @@ public class FeedController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) //Should be a get but I have it wired up as post to get it working
             throws ServletException, IOException
     {
-        HttpSession ses = request.getSession();
-        if(ses.getAttribute("customer") == null) {
+        HttpSession session = request.getSession();
+        Customer customer = (Customer) session.getAttribute("customer");
+        if(session.getAttribute("customer") == null) {
             response.setStatus(403);
         }else {
             DbThreadDao threadDao = new DbThreadDao();
 
-            Thread[] threads = threadDao.getFeed(3);
+            Thread[] threads = threadDao.getFeed(customer.getLocation().getCity());
             ArrayList<Thread> t = new ArrayList<>(Arrays.asList(threads));
             for(Thread tr : t) {
                 System.out.println(tr.getId());
