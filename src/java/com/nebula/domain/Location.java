@@ -12,7 +12,7 @@ import org.json.*;
  * Represents an exact location on earth.
  */
 public class Location {
-
+    private static final String DEFAULT_CITY = "Richardson";
     private String city;
 
     /**
@@ -43,7 +43,7 @@ public class Location {
         try {
             this.city = (String) json.get("city");
         } catch (java.lang.ClassCastException ex) {
-            this.city = "Richardson";
+            this.city = Location.DEFAULT_CITY;
         }
     }
 
