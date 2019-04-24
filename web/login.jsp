@@ -41,7 +41,7 @@
             <input type="password" class="form-control" name="password" id="password" placeholder="Password">
         </div>
         <button type="submit" name="submit" class="btn btn-primary">Log In</button>
-        <button type="button" class="btn btn-secondary" onclick="location.href='/register.jsp';">Register</button>
+        <button type="button" name="register" class="btn btn-secondary" onclick="location.href='/register.jsp';">Register</button>
     </form>
 
 </div>

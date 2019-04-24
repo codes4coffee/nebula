@@ -7,7 +7,7 @@ public class WikipediaTest {
 
     @Before
     public void openWikipediaEnglishPage() throws InterruptedException{
-        System.setProperty("webdriver.chrome.driver","chromedriver");
+        System.setProperty("webdriver.chrome.driver","chromedriver.exe");
         driver = new ChromeDriver();
         driver.get("https://www.wikipedia.org");
         Assert.assertEquals("Wikipedia", driver.getTitle());

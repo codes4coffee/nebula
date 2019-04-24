@@ -36,6 +36,6 @@ public class RootMessageController extends HttpServlet {
         RootMessage rootMessage = new RootMessage(customerId, body, title, type, imageUrl); // create a new root message from info
         Location location = new Location(); // get the location for use in creating the new thread
 
-        threadDao.postThread(location, rootMessage); // create the new thread
+        threadDao.postThread(customer, location, rootMessage); // create the new thread
     }
 }
