@@ -26,7 +26,7 @@
       <ul class="navbar-nav mr-auto">
         <a class="nav-link" href="feedlink">${sessionScope.name}</a>
       </ul>
-      <button class="btn btn-secondary my-2 my-sm-0" onclick="window.location.replace('post.jsp');">Post</button>
+      <button class="btn btn-secondary my-2 my-sm-0" name="post" onclick="window.location.replace('post.jsp');">Post</button>
     </nav>
     <%
       if(request.getAttribute("threads")!=null) {
@@ -35,7 +35,7 @@
         for(Thread t : threads) {
     %>
     <a>
-      <div class="card text-white bg-primary mb-3" onclick="window.location.replace('/post?id='+<%=t.getId()%>)">
+      <div class="card text-white bg-primary mb-3" name="card" onclick="window.location.replace('/post?id='+<%=t.getId()%>)">
         <div class="card-header"><%=t.getCustomerId()%> - <%=t.getLocation().getCity()%></div>
         <div class="card-body">
           <h3 class="card-title"><%=t.getOpeningPost().getTitle()%></h3>
